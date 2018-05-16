@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">adnroid_serverC</string>
+    <string name="login_name">Login</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
 </resources>
