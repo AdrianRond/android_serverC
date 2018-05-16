@@ -37,20 +37,20 @@
 
         <EditText
             android:id="@+id/userEditText"
-            android:hint="@string/username_hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:ems="10"
+            android:hint="@string/username_hint"
             android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/passEditText"
-            android:hint="@string/password_hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:ems="10"
+            android:hint="@string/password_hint"
             android:inputType="textPassword" />
 
         <RadioButton
