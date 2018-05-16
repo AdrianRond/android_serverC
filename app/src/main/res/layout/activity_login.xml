@@ -24,6 +24,18 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
+            android:id="@+id/hostEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:ems="10"
+            android:hint="@string/host_hint"
+            android:inputType="textPersonName" />
+
+        <EditText
             android:id="@+id/userEditText"
             android:hint="@string/username_hint"
             android:layout_width="match_parent"
@@ -41,14 +53,21 @@
             android:ems="10"
             android:inputType="textPassword" />
 
+        <RadioButton
+            android:id="@+id/rememberRadio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="@string/radio_text" />
+
         <Button
             android:id="@+id/loginButton"
-            android:text="@string/login_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="100dp" />
+            android:layout_marginTop="80dp"
+            android:text="@string/login_name" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

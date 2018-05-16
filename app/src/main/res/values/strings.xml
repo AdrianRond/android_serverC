@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">adnroid_serverC</string>
+
+
+    <!-- Login screen -->
     <string name="login_name">Login</string>
     <string name="username_hint">Username</string>
     <string name="password_hint">Password</string>
+    <string name="host_hint">Host</string>
+    <string name="radio_text">Kom ihåg</string>
 </resources>
