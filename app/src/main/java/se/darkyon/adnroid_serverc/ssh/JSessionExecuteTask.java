@@ -6,43 +6,38 @@ import android.util.Log;
 
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.ChannelShell;
+import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 
 import se.darkyon.adnroid_serverc.LoginActivity;
 
 public class JSessionExecuteTask extends AsyncTask<String, Void, Boolean> {
-    Session session;
-    ByteArrayOutputStream outputStream;
+    ChannelShell Shell;
 
-    public JSessionExecuteTask(Session session) {
-        this.session = session;
+    public JSessionExecuteTask(ChannelShell Shell) {
+        this.Shell = Shell;
     }
 
     @Override
     protected Boolean doInBackground(String... commands) {
-        for (String command: commands) {
-            try {
-                ChannelShell Shell = (ChannelShell)session.openChannel("shell");
-                ByteArrayInputStream inputStream = new ByteArrayInputStream(new byte[1000]);
-                outputStream = new ByteArrayOutputStream();
-
-                Shell.setInputStream(inputStream);
-                Shell.setOutputStream(outputStream);
+        try {
+            if (!Shell.isConnected())
                 Shell.connect();
 
-                inputStream.read(command.getBytes());
+            for (String command: commands)
+                Shell.getInputStream().read(command.getBytes());
 
-                Shell.disconnect();
-            } catch (Exception e) {
-                e.printStackTrace();
-                return false;
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
 
         return true;
@@ -52,7 +47,12 @@ public class JSessionExecuteTask extends AsyncTask<String, Void, Boolean> {
     protected void onPostExecute(Boolean success) {
         if (success) {
             Log.d("ExecuteSuccess", "True");
-            Log.d("Output", outputStream.toString());
+            try {
+                Log.d("Output", new ByteArrayOutputStream(Shell.getOutputStream()));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
             Log.d("ExecuteSuccess", "False");
         }

@@ -22,10 +22,11 @@ public class testActivity extends AppCompatActivity {
         String dir = dirText.getText().toString();
         String exec = execText.getText().toString();
 
-        String screenCommand = "screen -S \"Ark3\"";
+        String screenCommand = "screen -S Ark3";
+        String screemCommand2 = "screen -ls";
         String cdCommand = "cd " + dir + "/ShooterGame/Binaries/Linux";
         String startServerCommand = "./" + exec;
 
-        JSession.execute(screenCommand);
+        JSession.execute(screemCommand2);
     }
 }
