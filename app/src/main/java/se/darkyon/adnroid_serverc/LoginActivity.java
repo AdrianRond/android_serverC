@@ -6,17 +6,27 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.ChannelSftp;
+import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
+import com.jcraft.jsch.SftpATTRS;
+
+import java.util.Vector;
+import java.util.concurrent.ExecutionException;
 
 import se.darkyon.adnroid_serverc.ssh.HostData;
 import se.darkyon.adnroid_serverc.ssh.JSession;
+import se.darkyon.adnroid_serverc.ssh.JSessionConnectTask;
 
 public class LoginActivity extends AppCompatActivity {
+    JSession jSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        jSession = new JSession(this);
     }
 
     public void loginClick(View view) {
@@ -28,11 +38,17 @@ public class LoginActivity extends AppCompatActivity {
         String password = passwordText.getText().toString();
         String host = hostText.getText().toString();
 
-        Session session = JSession.getSession(new HostData(host, username, 22), password);
+        jSession.getSession(new HostData(host, username, password, 22));
+    }
+
+    public void onLogin(Session session) {
         if (session.isConnected()) {
             Log.d("isConntected", "true");
+            Log.d("something", session.getHost());
+
+            jSession.session = session;
         } else {
-            Log.d("isConntected", "false");
+            Log.d("isConnected", "false");
         }
     }
 }

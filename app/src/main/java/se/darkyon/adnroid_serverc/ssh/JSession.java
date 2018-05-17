@@ -1,28 +1,31 @@
 package se.darkyon.adnroid_serverc.ssh;
 
+import android.os.AsyncTask;
+import android.util.Log;
+
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
 import java.util.Properties;
 
+import se.darkyon.adnroid_serverc.LoginActivity;
+
 public class JSession {
-    private static JSch jSch = new JSch();
+    private JSch jSch = new JSch();
+    private LoginActivity callback;
+    public Session session;
 
-    public static Session getSession(HostData data, String password) {
-        Session session;
-        try {
-            session = jSch.getSession(data.user, data.ip, data.port);
-            session.setPassword(password);
-            Properties config = new Properties();
-            config.put("StrictHostKeyChecking", "no");
-            session.setConfig(config);
-            session.connect(30000);
-        } catch (JSchException e) {
-            return null;
-        }
+    public JSession(LoginActivity callback) {
+        this.callback = callback;
+    }
 
-        return session;
+    public void getSession(HostData data) {
+        new JSessionConnectTask(callback).execute(data);
+    }
+
+    public void execute(String... commands) {
+        new JSessionExecuteTask(session).execute(commands);
     }
 }
 
