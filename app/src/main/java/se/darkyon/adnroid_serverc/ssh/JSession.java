@@ -1,5 +1,6 @@
 package se.darkyon.adnroid_serverc.ssh;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -12,19 +13,13 @@ import java.util.Properties;
 import se.darkyon.adnroid_serverc.LoginActivity;
 
 public class JSession {
-    private JSch jSch = new JSch();
-    private LoginActivity callback;
-    public Session session;
+    public static Session session;
 
-    public JSession(LoginActivity callback) {
-        this.callback = callback;
+    public static void getSession(HostData data, Activity callback) {
+        new JSessionConnectTask((LoginActivity) callback).execute(data);
     }
 
-    public void getSession(HostData data) {
-        new JSessionConnectTask(callback).execute(data);
-    }
-
-    public void execute(String... commands) {
+    public static void execute(String... commands) {
         new JSessionExecuteTask(session).execute(commands);
     }
 }

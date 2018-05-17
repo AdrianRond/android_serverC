@@ -1,5 +1,6 @@
 package se.darkyon.adnroid_serverc;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,13 +21,11 @@ import se.darkyon.adnroid_serverc.ssh.JSession;
 import se.darkyon.adnroid_serverc.ssh.JSessionConnectTask;
 
 public class LoginActivity extends AppCompatActivity {
-    JSession jSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        jSession = new JSession(this);
     }
 
     public void loginClick(View view) {
@@ -38,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         String password = passwordText.getText().toString();
         String host = hostText.getText().toString();
 
-        jSession.getSession(new HostData(host, username, password, 22));
+        JSession.getSession(new HostData(host, username, password, 22), this);
     }
 
     public void onLogin(Session session) {
@@ -46,7 +45,10 @@ public class LoginActivity extends AppCompatActivity {
             Log.d("isConntected", "true");
             Log.d("something", session.getHost());
 
-            jSession.session = session;
+            JSession.session = session;
+
+            Intent intent = new Intent(this, testActivity.class);
+            startActivity(intent);
         } else {
             Log.d("isConnected", "false");
         }

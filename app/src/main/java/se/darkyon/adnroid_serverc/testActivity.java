@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import se.darkyon.adnroid_serverc.ssh.JSession;
+
 public class testActivity extends AppCompatActivity {
 
     @Override
@@ -19,5 +21,11 @@ public class testActivity extends AppCompatActivity {
 
         String dir = dirText.getText().toString();
         String exec = execText.getText().toString();
+
+        String screenCommand = "screen -S \"Ark3\"";
+        String cdCommand = "cd " + dir + "/ShooterGame/Binaries/Linux";
+        String startServerCommand = "./" + exec;
+
+        JSession.execute(screenCommand);
     }
 }
